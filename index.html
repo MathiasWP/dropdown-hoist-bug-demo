@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.62/dist/themes/light.css">
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.62/dist/shoelace.js"></script>
+    <script type="module" src="https://unpkg.com/@popperjs/core@2"></script>
+    <title>Dropdown hoist</title>
+  </head>
+  <body>
+    <sl-dropdown stay-open-on-select style="margin-left: 400px; margin-top: 50px;">
+      <sl-button slot="trigger">Open main dropdown</sl-button>
+      <sl-menu>
+        <sl-dropdown>
+          <sl-button type="text" slot="trigger" id="hi" class="trigger">Open inner (not-hoisted) dropdown</sl-button>
+          <sl-menu>
+            <h3>I am not hoisted</h3>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam id at, quo excepturi voluptates dolorum consequuntur voluptas provident hic, quaerat voluptatem! Aspernatur dolores iste, inventore doloremque fugit neque molestias ratione!
+          </sl-menu>
+        </sl-dropdown>
+      </sl-menu>
+      <sl-menu>
+        <sl-dropdown hoist>
+          <sl-button type="text" slot="trigger" class="trigger" style="margin-top: 30px;">Open inner (hoisted) dropdown</sl-button>
+          <sl-menu>
+            <h3>I am hoisted</h3>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam id at, quo excepturi voluptates dolorum consequuntur voluptas provident hic, quaerat voluptatem! Aspernatur dolores iste, inventore doloremque fugit neque molestias ratione!
+          </sl-menu>
+        </sl-dropdown>
+      </sl-menu>
+    </sl-dropdown>
+  </body>
+  <script>
+    function isScrollParent(element) {
+      // Firefox wants us to check `-x` and `-y` variations as well
+      const {overflow, overflowX, overflowY} = getComputedStyle(element);
+      return /auto|scroll|overlay|hidden/.test(overflow + overflowY + overflowX);
+    }
+    const btn = document.querySelector('#hi')
+    console.log(btn.clientLeft)
+    console.log(btn instanceof window.HTMLElement)
+  </script>
+</html>
